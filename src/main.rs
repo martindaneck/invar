@@ -1,21 +1,11 @@
-extern crate ratatui; 
-use ratatui::{DefaultTerminal, Frame};
+#![allow(dead_code, unused)]
 
-fn main() -> color_eyre::Result<()> {
-    color_eyre::install()?;
-    ratatui::run(app)?;
+use std::io;
+
+mod app;
+use app::App;
+
+fn main() -> io::Result<()> {
+    ratatui::run(|terminal| App::default().run(terminal));
     Ok(())
-}
-
-fn app(terminal: &mut DefaultTerminal) -> std::io::Result<()> {
-    loop {
-        terminal.draw(render)?;
-        if crossterm::event::read()?.is_key_press() {
-            break Ok(());
-        }
-    }
-}
-
-fn render(frame: &mut Frame) {
-    frame.render_widget("hello world", frame.area());
 }

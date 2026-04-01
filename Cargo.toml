@@ -1,5 +1,6 @@
 [package]
 name = "invar"
+edition = "2024"
 
 [dependencies]
 color-eyre = "0.6.5"
