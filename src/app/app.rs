@@ -16,15 +16,20 @@ use ratatui::{
 
 #[derive(Default)]
 pub struct App{
-    counter: i32,
+    pub counter: i32,
     exit: bool
 }
 
 impl App {
 
     /// runs the application's main loop until the user quits
-    pub fn run(&mut self, terminal: &mut DefaultTerminal) -> io::Result<()> {
+    pub fn run<F>(&mut self, terminal: &mut DefaultTerminal, mut update: F) -> io::Result<()> 
+    where 
+        F: FnMut(&mut App),
+    {
         while !self.exit {
+            update(self);
+
             terminal.draw(|frame| self.draw(frame))?;
             self.handle_events()?;
         }

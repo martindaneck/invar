@@ -6,6 +6,16 @@ mod app;
 use app::App;
 
 fn main() -> io::Result<()> {
-    ratatui::run(|terminal| App::default().run(terminal));
+    ratatui::run(|terminal| {
+        let mut app = App::default();
+
+        app.run(terminal, |app: &mut App| {
+            // main loop logic
+            if app.counter > 7 {
+                app.counter = 0;
+            }
+        })
+    });
+    
     Ok(())
 }
