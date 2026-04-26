@@ -12,8 +12,12 @@ fn main() -> io::Result<()> {
         app.run(terminal, |app: &mut App| {
             // main loop logic
             if app.counter > 7 {
-                app.counter = 0;
+                app.counter = 2;
             }
+            if app.counter < 2 {
+                app.counter = 7;
+            }
+
         })
     });
     
